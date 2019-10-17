@@ -1,3 +1,4 @@
+@import url("./Lexend Exa/css.css");
 :root {
   /* 
       FIRST WE'LL DEFINE OUR SWATCHES, i.e. THE COMPLEMENTARY
@@ -52,6 +53,23 @@ body {
 }
 #home_new_list_button:hover {
   box-shadow: 1px 2px;
+}
+#move_item_up_button {
+/* background-color:#669966; */
+border-radius: 8px;
+
+}
+#move_item_down_button {
+/* background-color:#669966; */
+/* border-radius: 8px; */
+
+
+}
+#delete_item_button {
+background-color:#669966;
+/* border-radius: 8px; */
+
+
 }
 
 /* HOME SCREEN CLASSES */
@@ -179,6 +197,7 @@ font-size: 16pt;
 /* FOR A MODAL DIALOG */
 
 .modal { 
+  z-index: 1; 
   position: fixed;
   top: 0;
   left: 0;
@@ -193,13 +212,20 @@ font-size: 16pt;
   visibility: hidden;
   opacity: 0;
   transition: all 0.35s ease-in;
+  overflow: auto;
 }
 
 .modal.is_visible {
   visibility: visible;
   opacity: 1;
 }
+.cannotClick {
+  pointer-events: none;
+}
 
+.canClick {
+  pointer-events: all;
+}
 .modal_dialog {
   position: relative;
   max-width: 800px;
