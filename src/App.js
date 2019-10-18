@@ -21,9 +21,6 @@ class App extends Component {
     currentItem: null
   }
 
-  // changeTrashState = () => {
-  //   this.setState({trash: true});
-  // }
 
   goHome = () => {
     this.setState({currentScreen: AppScreen.HOME_SCREEN});
@@ -36,18 +33,19 @@ class App extends Component {
     this.setState({currentList: todoListToLoad});
     this.state.currentList = todoListToLoad;
 
-    var newList = [];
+    // Put the recently loaded list on top
+    var loadedListonTop = []; // make a new array of lists
     for(let i = 0; i < this.state.todoLists.length;i++){
-      if(this.state.todoLists[i].key < todoListToLoad.key){
+      if(this.state.todoLists[i].key < todoListToLoad.key){ //update keys before current list key
         this.state.todoLists[i].key++;
       }
    }
-   todoListToLoad.key = 0;
+   todoListToLoad.key = 0; //move current list on top
     for(var i = 0; i < this.state.todoLists.length; i++){
-      newList[this.state.todoLists[i].key] = this.state.todoLists[i];
+      loadedListonTop[this.state.todoLists[i].key] = this.state.todoLists[i];
     }
     this.setState({
-      todoLists: newList
+      todoLists: loadedListonTop // replace old list
     })
 
 
@@ -73,6 +71,7 @@ class App extends Component {
   }
 closeItemScreen = () => {
   this.setState({currentScreen: AppScreen.LIST_SCREEN});
+  this.setState({currentItem: null});
 
 }
 

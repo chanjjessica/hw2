@@ -2,12 +2,8 @@ import React, { Component } from 'react'
 import ListHeading from './ListHeading'
 import ListItemsTable from './ListItemsTable'
 import ListTrash from './ListTrash'
-// import DeleteListDialog from './DeleteListDialog'
 import AddItem from './AddItem.png';
 
-// import PropTypes from 'prop-types';
-// import { thisExpression } from '@babel/types';
-// import { timingSafeEqual } from 'crypto';
 
 export class ListScreen extends Component {
     state = {
@@ -15,12 +11,7 @@ export class ListScreen extends Component {
     }
 
     showDialog = () => {
-        // console.log(this.state.vis);
         this.setState({vis:true});
-        // console.log(this.state.vis)
-        // this.todoList.setState({className: 'cannotClick'});
-        // let dialog = document.getElementsByClassName("modal");
-        // dialog.style.visibility = 'visible';
     }
     hideDialog=()=>{
         this.setState({vis:false});
@@ -37,7 +28,6 @@ export class ListScreen extends Component {
     getListOwner() {
         if (this.props.todoList) {
             let owner = this.props.todoList.owner;
-            // return this.props.todoList.owner;
             return owner;
         }
     }
@@ -135,9 +125,5 @@ export class ListScreen extends Component {
     }
 }
 
-// ListScreen.propTypes = {
-//     currentScreen: PropTypes.string.isRequired,
-//     todoItem: PropTypes.object.isRequired
-// }
 
 export default ListScreen

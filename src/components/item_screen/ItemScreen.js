@@ -8,20 +8,11 @@ export class ItemScreen extends Component {
             description:this.props.item ? this.props.item.description : "",
             due_date: this.props.item ? this.props.item.due_date : "",
             assigned_to:this.props.item ? this.props.item.assigned_to : "",
-            completed: this.props.item && this.props.item.completed ? true: false
+            completed: this.props.item && this.props.item.completed ? true: false,
+            editing: this.props.item ? true : false
         }
     }
-    state = {
-        new_item: false
-    };
 
-    // isEditing = () => {
-    //     this.setState({editing: true});
-    // }
-
-    // isAdding = () => {
-    //     this.setState({editing: false});
-    // }
 
     addItem = (description, due_date, assigned_to, completed) => {
 
@@ -39,27 +30,44 @@ export class ItemScreen extends Component {
             'key': this.props.currentList.items.length
 
         }
-        items.push(newItem);
-        this.props.currentList.items = items;
-        this.props.closeItemScreen();
+        if (this.state.description === ''){
+            // this.props.closeItemScreen();
+        }
+        else{
+            items.push(newItem);
+            this.props.currentList.items = items;
+            this.props.closeItemScreen();
+        }
         
 
     }
 
-    // updateList = () => {
-    //     if (this.state.editing === false) {
-    //         const newList = {
-    //             'description': document.getElementById("item_assigned_to_textfield").value,
-    //             'assigned_to': document.getElementById("item_assigned_to_textfield").value,
-    //             'due_date': document.getElementById("item_due_date_picker").value,
-    //             "completed": document.getElementById("item_completed_checkbox").checked
-    //         };
-            
-    //     }
-    //     else {
+    editItem = () => {
+        var items = this.props.currentList.items;
 
-    //     }
-    // }
+        const item = {
+            'key':this.props.currentList.items.length,
+            'description': this.state.description,
+            'assigned_to': this.state.assigned_to,
+            'due_date': this.state.due_date,
+            'completed': this.state.completed
+            
+        }
+        if (this.state.description === ''){
+            // this.props.closeItemScreen();
+        }
+        else {
+            for (var i = 0; i<this.props.currentList.items.length; i++){
+                if (items[i].key === this.props.item.key) {
+                    var oldKey = this.props.item.key;
+                    items[i] = item;
+                    items[i].key = oldKey;
+                }
+            }
+            this.props.currentList.items = items;
+            this.props.closeItemScreen();
+        }
+    }
 
     descriptionInput = (event) => {
         this.setState({description: event.target.value});
@@ -105,7 +113,7 @@ export class ItemScreen extends Component {
                             onChange= {this.completedInput}
                     />
                 </div>
-                <button id="item_form_submit_button" className="item_button" onClick={this.addItem.bind(this.descriptionInput, this.dueDateInput, this.assignedToInput, this.completedInput)}>Submit</button>
+                <button id="item_form_submit_button" className="item_button" onClick={this.state.editing ? this.editItem : this.addItem.bind(this.descriptionInput, this.dueDateInput, this.assignedToInput, this.completedInput)}>Submit</button>
                 <button id="item_form_cancel_button" className="item_button" onClick={this.props.closeItemScreen}>Cancel</button>
             </div>
         )
